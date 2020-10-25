@@ -472,12 +472,9 @@ async def demote_usr(client, message):
                 await edrep(message, text='I cant demote the void xD')
                 return
             try:
-                get_mem = await client.get_chat_member(
-                    chat_id, message.reply_to_message.from_user.id
-                )
                 await client.promote_chat_member(
                     chat_id,
-                    get_mem.user.id,
+                    user_id,
                     can_change_info=False,
                     can_delete_messages=False,
                     can_restrict_members=False,
