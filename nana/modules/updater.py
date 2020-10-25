@@ -127,9 +127,8 @@ async def updater(client, message):
                         f'\nCHANGELOG:**\n`{changelog}` '
         if len(changelog_str) > 4096:
             await edrep(message, text="`Changelog is too big, view the file to see it.`")
-            file = open("nana/cache/output.txt", "w+")
-            file.write(changelog_str)
-            file.close()
+            with open("nana/cache/output.txt", "w+") as file:
+                file.write(changelog_str)
             await client.send_document(message.chat.id, "nana/cache/output.txt", reply_to_message_id=message.message_id,
                                     caption="`Changelog file`")
             os.remove("nana/cache/output.txt")
