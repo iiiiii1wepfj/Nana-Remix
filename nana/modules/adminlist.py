@@ -27,7 +27,9 @@ Check all bots in spesific chat or current chat
 """
 
 
-@app.on_message(filters.me & filters.command(["admins", "adminlist"], Command))
+@app.on_message(
+    filters.me & filters.command(["admins", "adminlist"], Command)
+    )
 async def adminlist(client, message):
     replyid = None
     toolong = False
@@ -96,10 +98,12 @@ async def report_admin(client, message):
         text = None
     grup = await client.get_chat(message.chat.id)
     alladmins = client.iter_chat_members(message.chat.id, filter="administrators")
-    admin = []
-    async for a in alladmins:
-        if a.status in ["administrator", "creator"] and not a.user.is_bot:
-            admin.append(mention_html(a.user.id, "\u200b"))
+    admin = [
+        mention_html(a.user.id, "\u200b")
+        for a in alladmins
+        if a.status in ["administrator", "creator"] and not a.user.is_bot
+    ]
+
     if message.reply_to_message:
         if text:
             teks = '{}'.format(text)
