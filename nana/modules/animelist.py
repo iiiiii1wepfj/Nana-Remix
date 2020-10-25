@@ -1,5 +1,4 @@
 import math
-import requests
 import asyncio
 import re
 
@@ -7,6 +6,7 @@ from pyrogram import filters
 
 from nana import app, Command, AdminSettings, BotUsername, edrep, Owner, setbot
 from nana.helpers.PyroHelpers import ReplyCheck
+from nana.helpers.sauce import airing_sauce, character_sauce, manga_sauce
 from nana.modules.database import anime_db as sql
 from nana.assistant.__main__ import dynamic_data_filter
 
@@ -72,129 +72,13 @@ def t(milliseconds: int) -> str:
     return tmp[:-2]
 
 
-airing_query = '''
-    query ($id: Int,$search: String) { 
-        Media (id: $id, type: ANIME,search: $search) { 
-            id
-            episodes
-            title {
-                romaji
-                english
-                native
-            }
-            nextAiringEpisode {
-                airingAt
-                timeUntilAiring
-                episode
-            } 
-        }
-    }
-    '''
-
-fav_query = """
-query ($id: Int) { 
-      Media (id: $id, type: ANIME) { 
-        id
-        title {
-          romaji
-          english
-          native
-        }
-     }
-}
-"""
-
-anime_query = '''
-   query ($id: Int,$search: String) { 
-      Media (id: $id, type: ANIME,search: $search) { 
-        id
-        title {
-          romaji
-          english
-          native
-        }
-        description (asHtml: false)
-        startDate{
-            year
-          }
-          episodes
-          season
-          type
-          format
-          status
-          duration
-          siteUrl
-          studios{
-              nodes{
-                   name
-              }
-          }
-          trailer{
-               id
-               site 
-               thumbnail
-          }
-          averageScore
-          genres
-          bannerImage
-      }
-    }
-'''
-character_query = """
-    query ($query: String) {
-        Character (search: $query) {
-               id
-               name {
-                     first
-                     last
-                     full
-               }
-               siteUrl
-               image {
-                        large
-               }
-               description
-        }
-    }
-"""
-
-manga_query = """
-query ($id: Int,$search: String) { 
-      Media (id: $id, type: MANGA,search: $search) { 
-        id
-        title {
-          romaji
-          english
-          native
-        }
-        description (asHtml: false)
-        startDate{
-            year
-          }
-          type
-          format
-          status
-          siteUrl
-          averageScore
-          genres
-          bannerImage
-      }
-    }
-"""
-
-
-url = 'https://graphql.anilist.co'
-
-
 @app.on_message(filters.user(AdminSettings) & filters.command("airing", Command))
 async def anime_airing(_client, message):
     search_str = message.text.split(' ', 1)
     if len(search_str) == 1:
         await edrep(message, text='Format: `airing <anime name>`')
         return
-    variables = {'search': search_str[1]}
-    response = requests.post(
-        url, json={'query': airing_query, 'variables': variables}).json()['data']['Media']
+    response = (await airing_sauce(search_str[1]))['data']['Media']
     ms_g = f"**Name**: **{response['title']['romaji']}**(`{response['title']['native']}`)\n**ID**: `{response['id']}`"
     if response['nextAiringEpisode']:
         airing_time = response['nextAiringEpisode']['timeUntilAiring'] * 1000
@@ -231,9 +115,7 @@ async def character_search(client, message):
     if len(search) == 1:
         await message.delete()
         return
-    search = search[1]
-    variables = {'query': search}
-    json = requests.post(url, json={'query': character_query, 'variables': variables}).json()['data'].get('Character', None)
+    json = (await character_sauce(search[1]))['data'].get('Character', None)
     if json:
         ms_g = f"**{json.get('name').get('full')}**(`{json.get('name').get('native')}`)\n"
         description = f"{json['description']}"
@@ -254,10 +136,8 @@ async def manga_search(client, message):
     if len(search) == 1:
         await message.delete()
         return
-    search = search[1]
-    variables = {'search': search}
-    json = requests.post(url, json={'query': manga_query, 'variables': variables}).json()[
-        'data'].get('Media', None)
+    
+    json = (await manga_sauce(search[1]))['data'].get('Media', None)
     ms_g = ''
     if json:
         title, title_native = json['title'].get(

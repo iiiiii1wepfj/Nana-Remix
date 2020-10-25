@@ -395,14 +395,15 @@ async def promote_usr(client, message):
         chat_id = message.chat.id
         can_promo = await admin_check(message)
         if can_promo:
-            if message.reply_to_message:
-                user_id = message.reply_to_message.from_user.id
-                custom_rank = get_emoji_regexp().sub("", " ".join(cmd[1:]))
-                if len(custom_rank) > 15:
-                    custom_rank = custom_rank[:15]
-            else:
-                await edrep(message, text=tld('promote_user'))
-                await asyncio.sleep(5)
+            try:
+                if message.reply_to_message:
+                    user_id = message.reply_to_message.from_user.id
+                    custom_rank = get_emoji_regexp().sub("", " ".join(cmd[1:]))
+                else:
+                    usr = await client.get_users(cmd[1])
+                    custom_rank = get_emoji_regexp().sub("", " ".join(cmd[2:]))
+                    user_id = usr.id
+            except IndexError:
                 await message.delete()
                 return
 
@@ -461,36 +462,38 @@ async def demote_usr(client, message):
         chat_id = message.chat.id
         can_demote = await admin_check(message)
         if can_demote:
-            if message.reply_to_message:
-                try:
-                    get_mem = await client.get_chat_member(
-                        chat_id, message.reply_to_message.from_user.id
-                    )
-                    await client.promote_chat_member(
-                        chat_id,
-                        get_mem.user.id,
-                        can_change_info=False,
-                        can_delete_messages=False,
-                        can_restrict_members=False,
-                        can_invite_users=False,
-                        can_pin_messages=False,
-                    )
-                    await message.delete()
-                except ChatAdminRequired:
-                    await edrep(message, text=tld('denied_permission'))
-                    await asyncio.sleep(5)
-                    await message.delete()
-                    return
-
-                except Exception as e:
-                    await edrep(message, text=f"**Log:** `{e}`")
-                    return
-
-            if not message.reply_to_message:
-                await edrep(message, text=tld('demote_user'))
+            try:
+                if message.reply_to_message:
+                    user_id = message.reply_to_message.from_user.id
+                else:
+                    usr = await client.get_users(message.command[1])
+                    user_id = usr.id
+            except IndexError:
+                await edrep(message, text='I cant demote the void xD')
                 return
-        else:
-            await edrep(message, text="``permission denied`")
+            try:
+                get_mem = await client.get_chat_member(
+                    chat_id, message.reply_to_message.from_user.id
+                )
+                await client.promote_chat_member(
+                    chat_id,
+                    get_mem.user.id,
+                    can_change_info=False,
+                    can_delete_messages=False,
+                    can_restrict_members=False,
+                    can_invite_users=False,
+                    can_pin_messages=False,
+                )
+                await message.delete()
+            except ChatAdminRequired:
+                await edrep(message, text=tld('denied_permission'))
+                await asyncio.sleep(5)
+                await message.delete()
+                return
+
+            except Exception as e:
+                await edrep(message, text=f"**Log:** `{e}`")
+                return
     else:
         await message.delete()
 

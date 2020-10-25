@@ -1,10 +1,7 @@
-"""
-The initial start of Nana-Remix
-"""
+"""The initial start of Nana-Remix."""
 import logging
 import os
 import sys
-import time
 from inspect import getfullargspec
 
 from pydrive.auth import GoogleAuth
@@ -13,9 +10,6 @@ from pyrogram.types import Message
 from sqlalchemy import create_engine, exc
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
-
-StartTime = time.time()
-
 
 
 ENV = bool(os.environ.get('ENV', False))

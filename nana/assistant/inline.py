@@ -17,7 +17,8 @@ from nana.helpers.msg_types import Types
 from nana.helpers.string import parse_button, build_keyboard
 from nana.modules.pm import welc_txt
 from nana.helpers.aiohttp_helper import AioHttp
-from nana.modules.animelist import url, anime_query, shorten
+from nana.helpers.sauce import anime_sauce
+from nana.modules.animelist import shorten
 from nana.modules.database import anime_db as sql
 from nana.modules.stylish import text_style_generator, formatting_text_inline, CHAR_OVER, \
     CHAR_UNDER, CHAR_STRIKE, graffiti, graffitib, CHAR_POINTS, upsidedown_text_inline, smallcaps, superscript, \
@@ -305,50 +306,45 @@ async def inline_query_handler(client, query):
                                             switch_pm_parameter="help_inline"
                                             )
             return
-        search = string.split(None, 1)[1]
-        variables = {'search' : search}
-        async with aiohttp.ClientSession() as session:
-            async with session.post(url, json={'query': anime_query, 'variables': variables}) as resp:
-                r = await resp.json()
-                json = r['data'].get('Media', None)
-                if json:
-                    msg = f"**{json['title']['romaji']}** (`{json['title']['native']}`)\n**Type**: {json['format']}\n**Status**: {json['status']}\n**Episodes**: {json.get('episodes', 'N/A')}\n**Duration**: {json.get('duration', 'N/A')} Per Ep.\n**Score**: {json['averageScore']}\n**Genres**: `"
-                    for x in json['genres']: 
-                        msg += f"{x}, "
-                    msg = msg[:-2] + '`\n'
-                    msg += "**Studios**: `"
-                    for x in json['studios']['nodes']:
-                        msg += f"{x['name']}, " 
-                    msg = msg[:-2] + '`\n'
-                    info = json.get('siteUrl')
-                    trailer = json.get('trailer', None)
-                    if trailer:
-                        trailer_id = trailer.get('id', None)
-                        site = trailer.get('site', None)
-                        if site == "youtube": trailer = 'https://youtu.be/' + trailer_id
-                    description = json.get('description', 'N/A').replace('<i>', '').replace('</i>', '').replace('<br>', '')
-                    msg += shorten(description, info) 
-                    image = json.get('bannerImage', None)
-                    if trailer:
-                        buttons = [[InlineKeyboardButton("More Info", url=info), InlineKeyboardButton("Trailer 🎬", url=trailer)],
-                                    [InlineKeyboardButton('Add to Watchlist', callback_data=f'addfav_{json["title"]["romaji"]}')]]
-                    else:
-                        buttons = [[InlineKeyboardButton("More Info", url=info),
-                                    InlineKeyboardButton('Add to Watchlist', callback_data=f'addfav_{json["title"]["romaji"]}')]]
-                    if image:
-                        answers.append(InlineQueryResultPhoto(
-                            caption=msg,
-                            photo_url=image,
-                            parse_mode="markdown",
-                            title=f"{json['title']['romaji']}",
-                            description=f"{json['format']}",
-                            reply_markup=InlineKeyboardMarkup(buttons)))
-                    else:
-                        answers.append(InlineQueryResultArticle(
-                            title=f"{json['title']['romaji']}",
-                            description=f"{json['averageScore']}",
-                            input_message_content=InputTextMessageContent(msg, parse_mode="markdown", disable_web_page_preview=True),
-                            reply_markup=InlineKeyboardMarkup(buttons)))
+        json = (await anime_sauce(string.split(None, 1)[1]))['data'].get('Media', None)
+        if json:
+            msg = f"**{json['title']['romaji']}** (`{json['title']['native']}`)\n**Type**: {json['format']}\n**Status**: {json['status']}\n**Episodes**: {json.get('episodes', 'N/A')}\n**Duration**: {json.get('duration', 'N/A')} Per Ep.\n**Score**: {json['averageScore']}\n**Genres**: `"
+            for x in json['genres']: 
+                msg += f"{x}, "
+            msg = msg[:-2] + '`\n'
+            msg += "**Studios**: `"
+            for x in json['studios']['nodes']:
+                msg += f"{x['name']}, " 
+            msg = msg[:-2] + '`\n'
+            info = json.get('siteUrl')
+            trailer = json.get('trailer', None)
+            if trailer:
+                trailer_id = trailer.get('id', None)
+                site = trailer.get('site', None)
+                if site == "youtube": trailer = 'https://youtu.be/' + trailer_id
+            description = json.get('description', 'N/A').replace('<i>', '').replace('</i>', '').replace('<br>', '')
+            msg += shorten(description, info) 
+            image = f'https://img.anili.st/media/{json["id"]}'
+            if trailer:
+                buttons = [[InlineKeyboardButton("More Info", url=info), InlineKeyboardButton("Trailer 🎬", url=trailer)],
+                            [InlineKeyboardButton('Add to Watchlist', callback_data=f'addfav_{json["title"]["romaji"]}')]]
+            else:
+                buttons = [[InlineKeyboardButton("More Info", url=info),
+                            InlineKeyboardButton('Add to Watchlist', callback_data=f'addfav_{json["title"]["romaji"]}')]]
+            if image:
+                answers.append(InlineQueryResultPhoto(
+                    caption=msg,
+                    photo_url=image,
+                    parse_mode="markdown",
+                    title=f"{json['title']['romaji']}",
+                    description=f"{json['format']}",
+                    reply_markup=InlineKeyboardMarkup(buttons)))
+            else:
+                answers.append(InlineQueryResultArticle(
+                    title=f"{json['title']['romaji']}",
+                    description=f"{json['averageScore']}",
+                    input_message_content=InputTextMessageContent(msg, parse_mode="markdown", disable_web_page_preview=True),
+                    reply_markup=InlineKeyboardMarkup(buttons)))
         await client.answer_inline_query(query.id,
                                         results=answers,
                                         cache_time=0
