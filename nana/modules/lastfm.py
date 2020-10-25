@@ -19,6 +19,7 @@ __MODULE__ = "Last.FM"
 async def lastfm(client, message):
     x = await client.get_inline_bot_results("lastfmrobot", "")
     await message.delete()
-    await message.reply_inline_bot_result(x.query_id, x.results[0].id,
-                                          reply_to_message_id=ReplyCheck(message),
-                                          hide_via=True)
+    await message.reply_inline_bot_result(
+        x.query_id, x.results[0].id,
+        reply_to_message_id=ReplyCheck(message),
+        hide_via=True)

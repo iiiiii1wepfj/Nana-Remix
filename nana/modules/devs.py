@@ -85,18 +85,15 @@ async def sd_reveal(client, message):
     if len(message.text.split()) == 1:
         await message.delete()
         return
+    await message.delete()
+    a = 'nana/file.png'
+    await client.download_media(message.reply_to_message.photo, file_name=a)
     if tags:
-        await message.delete()
-        a = 'nana/file.png'
-        await client.download_media(message.reply_to_message.photo, file_name=a)
         await client.send_photo('me', a)
-        os.remove(a)
     else:
-        await message.delete()
-        a = 'nana/file.png'
-        await client.download_media(message.reply_to_message.photo, file_name=a)
         await client.send_photo(message.chat.id, a)
-        os.remove(a)
+
+    os.remove(a)
 
 
 @app.on_message(filters.user(AdminSettings) & filters.command("eval", Command))
@@ -213,11 +210,12 @@ async def terminal(client, message):
         output = None
     if output:
         if len(output) > 4096:
-            file = open("nana/cache/output.txt", "w+")
-            file.write(output)
-            file.close()
-            await client.send_document(message.chat.id, "nana/cache/output.txt", reply_to_message_id=message.message_id,
-                                       caption="`Output file`")
+            with open("nana/cache/output.txt", "w+") as file:
+                file.write(output)
+                file.close()
+            await client.send_document(
+                message.chat.id, "nana/cache/output.txt", reply_to_message_id=message.message_id,
+                caption="`Output file`")
             os.remove("nana/cache/output.txt")
             return
         await edrep(message, text="""**Input:**\n```{}```\n\n**Output:**\n```{}```""".format(teks, output))

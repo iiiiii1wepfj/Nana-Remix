@@ -6,7 +6,8 @@ from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram.raw import functions
 
-from nana import setbot, AdminSettings, Command, DB_AVAILABLE, StartTime, NANA_IMG, BotUsername, app, Owner
+from nana import setbot, AdminSettings, Command, DB_AVAILABLE, NANA_IMG, BotUsername, app, Owner
+from nana.__main__ import BOT_RUNTIME
 from nana.helpers.misc import paginate_modules
 from nana.modules.chats import get_msgc
 from nana.tr_engine.strings import tld
@@ -94,6 +95,6 @@ async def stats(_client, message):
     count = sum(x.count for x in all_sets)
     text += f"<b>Stickers Count:</b> <code>{count} across {len(all_sets)} sets</code>\n"
     text += "<b>Message received:</b> `{} messages`\n".format(get_msgc())
-    uptime = get_readable_time((time.time() - StartTime))
+    uptime = get_readable_time((time.time() - BOT_RUNTIME))
     text += ("<b>Nana uptime:</b> <code>{}</code>".format(uptime))
     await message.reply_text(text, quote=True)
