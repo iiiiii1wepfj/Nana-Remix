@@ -4,8 +4,7 @@ import re
 
 from pyrogram import filters
 
-from nana import setbot, AdminSettings, BotUsername, app, Command, OwnerUsername
-from nana.__main__ import BOT_RUNTIME
+from nana import setbot, AdminSettings, BotUsername, app, Command, OwnerUsername, StartTime
 from nana.helpers.PyroHelpers import ReplyCheck
 from nana.assistant.__main__ import dynamic_data_filter
 
@@ -38,7 +37,7 @@ def get_readable_time(seconds: int) -> str:
 @setbot.on_callback_query(dynamic_data_filter("alive_message"))
 async def  alivemsg_callback(client, query):
     start_time = time.time()
-    uptime = get_readable_time((time.time() - BOT_RUNTIME))
+    uptime = get_readable_time((time.time() - StartTime))
     reply_msg = f"{OwnerUsername}@nana-remix\n"
     reply_msg += "------------------\n"
     end_time = time.time()
