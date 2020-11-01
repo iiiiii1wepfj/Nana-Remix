@@ -51,7 +51,10 @@ async def get_chat(client, message):
         writing.write(str(chatfile))
         writing.close()
 
-    await client.send_document("self", document="nana/cache/chatlist.txt",
-                               caption="Here is the chat list that I joined.")
+    await client.send_document(
+        "self",
+        document="nana/cache/chatlist.txt",
+        caption="Here is the chat list that I joined."
+    )
     await edrep(message, text="My chat list exported to my saved messages.")
     os.remove("nana/cache/chatlist.txt")
