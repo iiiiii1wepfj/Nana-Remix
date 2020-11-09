@@ -62,10 +62,6 @@ RUN apt update && apt upgrade -y && \
     libopus-dev \
     && rm -rf /var/lib/apt/lists /var/cache/apt/archives /tmp
 
-# Pypi package Repo upgrade
-RUN python3 -m pip install --upgrade pip setuptools
-
-
 # copy the dependencies file to the working directory
 COPY requirements.txt .
 
