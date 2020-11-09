@@ -94,6 +94,6 @@ async def stats(_client, message):
     count = sum(x.count for x in all_sets)
     text += f"<b>Stickers Count:</b> <code>{count} across {len(all_sets)} sets</code>\n"
     text += "<b>Message received:</b> `{} messages`\n".format(get_msgc())
-    uptime = get_readable_time((time.time() - BOT_RUNTIME))
+    uptime = get_readable_time((time.time() - StartTime))
     text += ("<b>Nana uptime:</b> <code>{}</code>".format(uptime))
     await message.reply_text(text, quote=True)

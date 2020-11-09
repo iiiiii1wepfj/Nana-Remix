@@ -63,14 +63,14 @@ RUN apt update && apt upgrade -y && \
     && rm -rf /var/lib/apt/lists /var/cache/apt/archives /tmp
 
 # Pypi package Repo upgrade
-RUN pip3 install --upgrade pip setuptools
+RUN python3 -m pip install --upgrade pip setuptools
 
 
 # copy the dependencies file to the working directory
 COPY requirements.txt .
 
 # install dependencies
-RUN pip install -r requirements.txt
+RUN python3 -m pip install -r requirements.txt
 
 # copy the content of the local src directory to the working directory
 COPY . .
