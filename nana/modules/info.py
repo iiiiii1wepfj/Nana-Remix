@@ -84,7 +84,7 @@ async def whois(client, message):
             status = sw.get_ban(user.id)
             if status == False:
                 await edrep(message, text=f"""
-**About [{user.first_name} {user.last_name if user.last_name else ''}](tg://user?id={user.id})**:
+**About {user.mention}**:
   - **UserID**: `{user.id}`
   - **Username**: {'@'+user.username if user.username else ''}
   - **Last Online**: `{LastOnline(user)}`
@@ -95,7 +95,7 @@ async def whois(client, message):
                 disable_web_page_preview=True)
             else:
                 await edrep(message, text=f"""
-**About [{user.first_name} {user.last_name if user.last_name else ''}](tg://user?id={user.id})**:
+**About {user.mention}**:
   - **UserID**: `{user.id}`
   - **Username**: {'@'+user.username if user.username else ''}
   - **Last Online**: `{LastOnline(user)}`
@@ -109,7 +109,7 @@ async def whois(client, message):
             return
         else:
             await edrep(message, text=f"""
-**About [{user.first_name} {user.last_name if user.last_name else ''}](tg://user?id={user.id})**:
+**About {user.mention}**:
   - **UserID**: `{user.id}`
   - **Username**: {'@'+user.username if user.username else ''}
   - **Last Online**: `{LastOnline(user)}`

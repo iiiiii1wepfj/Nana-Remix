@@ -1,4 +1,5 @@
 import re
+import asyncio
 
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
@@ -29,8 +30,8 @@ async def pm_block(client, message):
             for x in message.text.lower().split():
                 if x in BLACKLIST:
                     await client.send_sticker(message.chat.id,
-                                              sticker='CAADAgAD1QQAAp7kTAry1JrL3zVXSxYE'
-                                              )
+                                            sticker='CAADAgAD1QQAAp7kTAry1JrL3zVXSxYE'
+                                            )
                     await message.reply("Naah im blocking you and reporting you to SpamWatch,\nwith that being said fuck you too OwO")
                     await client.block_user(message.chat.id)
                     return
@@ -45,15 +46,32 @@ async def pm_block(client, message):
 
 @app.on_message(filters.me & filters.command("approve", Command) & filters.private)
 async def approve_pm(_client, message):
-    set_whitelist(message.chat.id, True)
+    if message.chat.type == 'private':
+        set_whitelist(message.chat.id, True)
+    else:
+        if message.reply_to_message:
+            set_whitelist(message.reply_to_message.from_user.id, True)
+        else:
+            message.delete()
+            return
     await message.edit("**PM permission was approved!**")
+    await asyncio.sleep(3)
+    await message.delete()
 
 
 @app.on_message(filters.me & filters.command(["revoke", "disapprove"], Command) & filters.private)
 async def revoke_pm_block(_client, message):
-    del_whitelist(message.chat.id)
+    if message.chat.type == 'private':
+        del_whitelist(message.chat.id)
+    else:
+        if message.reply_to_message:
+            del_whitelist(message.reply_to_message.from_user.id)
+        else:
+            message.delete()
+            return
     await message.edit("**PM permission was revoked!**")
-
+    await asyncio.sleep(3)
+    await message.delete()
 
 def pm_button_callback(_, __, query):
     if re.match("engine_pm", query.data):

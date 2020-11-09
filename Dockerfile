@@ -1,5 +1,5 @@
 # We're using Debian Slim Buster image
-FROM python:3.8.4-slim-buster
+FROM debian:buster-slim
 
 ENV PIP_NO_CACHE_DIR 1
 
@@ -15,7 +15,6 @@ RUN apt update && apt upgrade -y && \
     bash \
     bzip2 \
     curl \
-    figlet \
     git \
     util-linux \
     libffi-dev \
@@ -64,14 +63,14 @@ RUN apt update && apt upgrade -y && \
     && rm -rf /var/lib/apt/lists /var/cache/apt/archives /tmp
 
 # Pypi package Repo upgrade
-RUN pip3 install --upgrade pip setuptools
+RUN python3 -m pip install --upgrade pip setuptools
 
 
 # copy the dependencies file to the working directory
 COPY requirements.txt .
 
 # install dependencies
-RUN pip install -r requirements.txt
+RUN python3 -m pip install -r requirements.txt
 
 # copy the content of the local src directory to the working directory
 COPY . .

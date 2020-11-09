@@ -3,6 +3,7 @@ import logging
 import os
 import sys
 from inspect import getfullargspec
+import time
 
 from pydrive.auth import GoogleAuth
 from pyrogram import Client, errors
@@ -11,6 +12,7 @@ from sqlalchemy import create_engine, exc
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
 
+StartTime = time.time()
 
 ENV = bool(os.environ.get('ENV', False))
 if ENV:
