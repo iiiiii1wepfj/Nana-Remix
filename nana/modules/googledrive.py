@@ -185,7 +185,7 @@ async def gdrive_stuff(client, message):
             if message.reply_to_message.photo:
                 if message.reply_to_message.caption:
                     nama = f'{message.reply_to_message.caption}.png'.replace(' ', '_')
-                else: 
+                else:
                     nama = f"photo_{message.reply_to_message.photo.date}.png"
                 await client.download_media(message.reply_to_message.photo, file_name="nana/downloads/" + nama,
                                             progress=lambda d, t: asyncio.get_event_loop().create_task(

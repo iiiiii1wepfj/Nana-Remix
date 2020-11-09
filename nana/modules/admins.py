@@ -1,9 +1,7 @@
 import asyncio
 import time
 from emoji import get_emoji_regexp
-import os
 
-from pyrogram.raw import functions
 from pyrogram import filters
 from pyrogram.types import ChatPermissions
 from pyrogram.errors import (

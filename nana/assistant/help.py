@@ -6,7 +6,7 @@ from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram.raw import functions
 
-from nana import setbot, AdminSettings, Command, DB_AVAILABLE, NANA_IMG, BotUsername, app, Owner, StartTime
+from nana import setbot, AdminSettings, Command, DB_AVAILABLE, NANA_IMG, BotUsername, app, StartTime
 from nana.helpers.misc import paginate_modules
 from nana.modules.chats import get_msgc
 from nana.tr_engine.strings import tld
