@@ -1,7 +1,9 @@
-# We're using Debian Slim Buster image
-FROM debian:buster-slim
+# We're using Ubuntu (cause heroku shit)
+FROM ubuntu:latest
 
 ENV PIP_NO_CACHE_DIR 1
+
+ARG DEBIAN_FRONTEND=noninteractive
 
 RUN sed -i.bak 's/us-west-2\.ec2\.//' /etc/apt/sources.list
 
@@ -10,22 +12,12 @@ WORKDIR /app/
 # Installing Required Packages
 RUN apt update && apt upgrade -y && \
     apt install --no-install-recommends -y \
-    debian-keyring \
-    debian-archive-keyring \
-    bash \
-    bzip2 \
     curl \
     git \
-    util-linux \
     libffi-dev \
     libjpeg-dev \
-    libjpeg62-turbo-dev \
+    libjpeg-turbo8-dev \
     libwebp-dev \
-    linux-headers-amd64 \
-    musl-dev \
-    musl \
-    neofetch \
-    php-pgsql \
     python3-lxml \
     postgresql \
     postgresql-client \
@@ -35,28 +27,19 @@ RUN apt update && apt upgrade -y && \
     libxml2-dev \
     libxslt1-dev \
     python3-pip \
-    python3-requests \
     python3-sqlalchemy \
-    python3-tz \
-    python3-aiohttp \
     openssl \
-    pv \
-    jq \
     wget \
     python3 \
     python3-dev \
     libreadline-dev \
     libyaml-dev \
     gcc \
-    sqlite3 \
-    libsqlite3-dev \
-    sudo \
     zlib1g \
     ffmpeg \
     libssl-dev \
     libgconf-2-4 \
     libxi6 \
-    xvfb \
     unzip \
     libopus0 \
     libopus-dev \
@@ -66,7 +49,7 @@ RUN apt update && apt upgrade -y && \
 COPY requirements.txt .
 
 # install dependencies
-RUN python3 -m pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
 # copy the content of the local src directory to the working directory
 COPY . .
