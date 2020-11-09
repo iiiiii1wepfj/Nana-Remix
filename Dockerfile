@@ -1,5 +1,5 @@
 # We're using Debian Slim Buster image
-FROM python:3.8.4-slim-buster
+FROM debian:buster-slim
 
 ENV PIP_NO_CACHE_DIR 1
 
@@ -15,7 +15,6 @@ RUN apt update && apt upgrade -y && \
     bash \
     bzip2 \
     curl \
-    figlet \
     git \
     util-linux \
     libffi-dev \

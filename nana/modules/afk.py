@@ -42,8 +42,10 @@ async def afk(_client, message):
     if len(message.text.split()) >= 2:
         set_afk(True, message.text.split(None, 1)[1])
         await message.edit(
-            "{} is now AFK!\nBecause of {}".format(mention_markdown(message.from_user.id, message.from_user.first_name),
-                                                   message.text.split(None, 1)[1]))
+            "{} is now AFK!\nBecause of {}".format(
+                mention_markdown(message.from_user.id, message.from_user.first_name),
+                message.text.split(None, 1)[1])
+            )
         await setbot.send_message(Owner, "You are now AFK!\nBecause of {}".format(message.text.split(None, 1)[1]))
     else:
         set_afk(True, "")

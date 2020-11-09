@@ -26,6 +26,9 @@ To report someone or report your message to all admins
 Check all bots in spesific chat or current chat
 """
 
+creator = []
+admin = []
+badmin = []
 
 @app.on_message(
     filters.me & filters.command(["admins", "adminlist"], Command)
@@ -41,9 +44,6 @@ async def adminlist(client, message):
     if message.reply_to_message:
         replyid = message.reply_to_message.message_id
     alladmins = client.iter_chat_members(chat, filter="administrators")
-    creator = []
-    admin = []
-    badmin = []
     async for a in alladmins:
         try:
             nama = a.user.first_name + " " + a.user.last_name
