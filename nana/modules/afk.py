@@ -79,7 +79,7 @@ async def afk_mentioned(_client, message):
 
         _, message_type = get_message_type(message)
         if message_type == Types.TEXT:
-            text = message.text if message.text else message.caption
+            text = message.text or message.caption
         else:
             text = message_type.name
 
