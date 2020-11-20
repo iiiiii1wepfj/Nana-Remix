@@ -262,7 +262,7 @@ async def inline_query_handler(client, query):
         answers.append(InlineQueryResultArticle(
             title="Speed Test",
             description="test your speed",
-            input_message_content=InputTextMessageContent("Select SpeedTest Mode", parse_mode="markdown"),
+            input_message_content=InputTextMessageContent(tld("speed_test_trigger"), parse_mode="markdown"),
             reply_markup=InlineKeyboardMarkup(buttons)))
         await client.answer_inline_query(query.id,
                                         results=answers,

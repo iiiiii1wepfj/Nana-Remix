@@ -4,6 +4,8 @@ from nana.helpers.PyroHelpers import ReplyCheck
 import speedtest
 import re
 
+from nana.tr_engine.strings import tld
+
 def speedtest_callback(_, __, query):
     if re.match("speedtest", query.data):
         return True
@@ -23,7 +25,7 @@ def speed_convert(size):
 @setbot.on_callback_query(speedtest_create)
 async def speedtestxyz_callback(client, query):
     if query.from_user.id in AdminSettings:
-        await setbot.edit_inline_text(query.inline_message_id,'Runing a speedtest....')
+        await setbot.edit_inline_text(query.inline_message_id,tld("speed_test_running"))
         speed = speedtest.Speedtest()
         speed.get_best_server()
         speed.download()

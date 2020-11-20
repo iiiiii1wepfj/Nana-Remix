@@ -65,3 +65,8 @@ unlock_invalid: "`Jenis Buka Kunci Tidak Valid!`"
 unlock_chat: "`Membuka {} untuk obrolan ini!`"
 #viewlocks
 permission_view_str: "<b>Izin obrolan:</b>\n<b>Kirim pesan:</b> {}\n<b>Kirim Media:</b> {}\n<b>Kirim Stiker:</b> {}\n<b>Kirim Animasi:</b> {}\n<b>Bisa Main Game:</b> {}\n<b>Dapat Menggunakan Bot Inline:</b> {}\n<b>Pratinjau Halaman Web:</b> {}\n<b>Kirim Polling:</b> {}\n<b>Ganti Info:</b> {}\n<b>Undang Pengguna:</b> {}\n<b>Sematkan Pesan:</b> {}\n"
+
+#####SpeedTest Module
+#Speed-Test
+speed_test_trigger: "Select SpeedTest Mode"
+speed_test_running: "Runing a speedtest...."
