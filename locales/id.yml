@@ -68,5 +68,5 @@ permission_view_str: "<b>Izin obrolan:</b>\n<b>Kirim pesan:</b> {}\n<b>Kirim Med
 
 #####SpeedTest Module
 #Speed-Test
-speed_test_trigger: "Select SpeedTest Mode"
-speed_test_running: "Runing a speedtest...."
+speed_test_trigger: "Pilih Mode TesKecepatan"
+speed_test_running: "Menjalankan teskecepatan"
