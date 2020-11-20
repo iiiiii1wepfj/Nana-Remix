@@ -68,5 +68,5 @@ permission_view_str: "<b>הרשאות קבוצתיות:</b>\n<b>שליחת הו�
 
 #####SpeedTest Module
 #Speed-Test
-speed_test_trigger: "Select SpeedTest Mode"
-speed_test_running: "Runing a speedtest...."
+speed_test_trigger: "בחר מצב בדיקת מהירות"
+speed_test_running: "מריץ בדיקת מהירות...."
