@@ -1,0 +1,67 @@
+# Language
+language_switch_success_pm: "Tu preferencia de idioma se ha actualizado a {}"
+language_not_supported: "{} aún no es compatible!"
+language_code_not_valid: "Ese no es un código de idioma válido. Utilice un código ISO aceptado internacionalmente!"
+language_current_locale: "El idioma actual de este chat es: ** {} **"
+language_select_language: "**Seleccione el idioma** \n"
+# Assistant Help
+inline_help_text: "**Guía en línea**\nSólo tiene que escribir `@ (comando)` en el cuadro de texto, y esperar la respuesta.\n\n──「 **Obtener nota de Inline** 」──\n-> `nota (*notetag)`\nY espere a que la lista de notas en línea, actualmente admite texto y botón solamente.\n\n──「 **Generador elegante en línea** 」──\n-> `estilo (tu texto)`\nConvertir un texto a varios estilos, se puede utilizar en cualquier lugar!\n\n* = Se puede utilizar como opcional"
+start_message: "Hola,\nNana está lista a su servicio!\n===================\n-> Python: `{}`\n-> Userbot: `{} (v{})`\n-> Asistente: `Running (v{})`\n-> base de datos: `{}`\n-> Grupo se unió a: `{}`\n===================\n`Para obtener más información sobre el botón de pulsación del bot abajo`"
+help_btn: "Ayuda"
+help_str: "Puede utilizar el valor de la {} unidad de usuario en el bot de usuarios para ejecutar esos comandos.\nAquí están los módulos actuales que tiene\nPrincipales comandos disponibles:\n - /start: obtén el estado de tu bot\n - /stats: obtén el estado de tu bot de usuario\n - /settings: ajustes de su userbot\n - /getme: obtener la información de su perfil de robot de usuario\n - /help: consigue este menú"
+alive_str: "**[Nana-Remix](https://github.com/pokurt/Nana-Remix):**\n - **Bot**:  `{} (v{})`\n - **Pyrograma**:  `{}`\n - **Python**:  `{}`\n - **Base de datos**: `{}`\n"
+# Gdrive Assistant
+gdrive_credential_err_heroku: "Hola, parece que no has iniciado sesión en Google Drive 🙂 puedo ayudarte a iniciar sesión.\nEn primer lugar, es necesario activar la API de google Drive\n1. [Ve aquí](https://developers.google.com/drive/api/v3/quickstart/python),\nhaga clic en Habilitar la API de la unidad\n2. Inicie sesión en su cuenta de Google (omita esto si ya ha iniciado sesión)\n3. Después de iniciar sesión, haga clic en Habilitar la API de la unidad de nuevo,\ny haga clic en el botón Descargar configuración de cliente, descárguelo.\n4. Después de descargar ese archivo, abra ese archivo y luego copie todo ese contenido en dashboard.heroku.com, \nseleccione sus aplicaciones y vaya a la configuración, vaya a config vars y luego agregue la clave con el nombre gdrive_credentials con el valor sus credenciales\nDespués de eso, puede ir a la siguiente guía por tipo /gdrive"
+# Adminlist Module
+# Adminlist
+adminlist_one: "**Administradoras in {}**\n╒═══「 Creator 」"
+adminlist_two: "╞══「 {} Administradora humana 」"
+adminlist_three: "╞══「 {} Administradora de bot 」"
+adminlist_four: "╘══「 Totales {} Administradoras 」"
+# ReportAdmins
+reportadmins_one: "{} Reportada a las administradoras."
+reportadmins_two: "Llamando a los administradores en {}"
+# tagall
+tagall: "¡Hola a todos!"
+# botlist
+botlist_one: "☠️ Cuenta eliminada"
+botlist_two: "** Todos los bots del grupo {} **"
+botlist_three: "╒═══「 Bots 」"
+botlist_four: "╘══「 Totales {} Bots 」"
+# Admins Module
+# errors
+user_invalid: "`nombre de usuario no válido`"
+peer_invalid: "`nombre de usuario o ID de usuario no válido`"
+id_invalid: "`usuario no válido`"
+denied_permission: "`permiso denegado`"
+# Invite_link
+invite_link: "**Enlace de invitación generado para {}:**\n - **Unirse al enlace:** {}"
+# pin_message
+pin_message: "`Responder a un mensaje para anclar`"
+# mute
+mute_user: "`Responder a un usuario para silenciarlos`"
+# unmute
+unmute_user: "`Responder a un usuario para desactivar su silencio`"
+# kick
+kick_user: "`Responder a un usuario para patear`"
+# ban
+ban_user: "`responder a un usuario para prohibir.`"
+# unban
+unban_user: "`Responder a un usuario a unban`"
+# promote
+promote_user: "`respuesta a un usuario para promocionar`"
+# demote
+demote_user: "`responder a un usuario para degradar.`"
+# lock
+lock_all: "`¡Bloqueado todo el permiso de este chat!`"
+lock_chat: "`¡Bloqueado para este chat!`"
+# Unlock
+unlock_all: "`¡Desbloqueado todo el permiso de este chat!`"
+unlock_invalid: "`¡Tipo de desbloqueo no válido!`"
+unlock_chat: "`¡Desbloqueado {} para este chat!`"
+# viewlocks
+permission_view_str: "<b>Permisos de chat: </b>\n<b>Enviar mensajes: </b> {}\n<b>Enviar contenido multimedia: </b> {}\n<b>Enviar pegatinas: </b> {}\n<b>Enviar animaciones: </b> {}\n<b>Puede jugar juegos: </b> {}\n<b>Puede utilizar Inline Bots: </b> {}\n<b>Vista previa de la página web: </b> {}\n<b>Enviar encuestas: </b> {}\n<b>Cambiar información: </b> {}\n<b>Invitar usuarios: </b> {}\n<b>Mensajes de PIN: </b> {}"
+# SpeedTest Module
+# Speed-Test
+speed_test_trigger: "Seleccione el modo SpeedTest"
+speed_test_running: "Ejecutar un speedtest...."

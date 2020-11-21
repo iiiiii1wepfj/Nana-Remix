@@ -13,7 +13,8 @@ LANGUAGES = [
     'fa',
     'bn',
     'el',
-    'dv'
+    'dv',
+    'es'
 ]
 
 strings = {
@@ -66,6 +67,11 @@ def tld(t, _show_none=True):
                 encode(strings['dv'][t], 'latin-1', 'backslashreplace'),
                 'unicode-escape')
             return result
+        elif LOCALE in ('es') and t in strings['es']:
+            result = decode(
+                encode(strings['es'][t], 'latin-1', 'backslashreplace'),
+                'unicode-escape')
+            return result
 
     if t in strings['en-US']:
         result = decode(
@@ -99,6 +105,8 @@ def tld_list(t):
             return strings['el'][t]
         elif LOCALE in ('dv') and t in strings['dv']:
             return strings['dv'][t]
+        elif LOCALE in ('es') and t in strings['es']:
+            return strings['es'][t]
 
     if t in strings['en-US']:
         return strings['en-US'][t]
