@@ -46,7 +46,7 @@ async def locale_button(client, query):
         [InlineKeyboardButton("🇮🇷 فارسی", callback_data="set_lang_fa"),
         InlineKeyboardButton("🇧🇩 বাংলা", callback_data="set_lang_bn")],
         [InlineKeyboardButton("🇬🇷 Ελληνικά", callback_data="set_lang_el"),
-        InlineKeyboardButton("🇲🇻 ދިވެހި", callback_data="set_lang_dv")]
+        InlineKeyboardButton("🇲🇻 ދިވެހި", callback_data="set_lang_dv")],
         [InlineKeyboardButton("🇪🇸 Espanol", callback_data="set_lang_es")]
     ]
     await client.edit_message_text(chat_id=Owner, message_id=query.message.message_id, text=text, parse_mode='markdown',
