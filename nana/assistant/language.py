@@ -19,7 +19,7 @@ language_button_create = filters.create(language_button_callback)
 
 @setbot.on_callback_query(language_button_create)
 async def locale_button(client, query):
-    lang_match = re.findall(r"en-US|hi|he|id|fa", query.data)
+    lang_match = re.findall(r"en-US|hi|he|id|fa|bn", query.data)
     if lang_match:
         if lang_match[0]:
             switch_to_locale(Owner, lang_match[0])
@@ -40,7 +40,8 @@ async def locale_button(client, query):
         InlineKeyboardButton("Hindi 🇮🇳", callback_data="set_lang_hi")],
         [InlineKeyboardButton("Hebrew 🇮🇱", callback_data="set_lang_he"),
         InlineKeyboardButton("Indonasian 🇮🇩", callback_data="set_lang_id")],
-        [InlineKeyboardButton("Farsi 🇮🇷", callback_data="set_lang_fa")]
+        [InlineKeyboardButton("Farsi 🇮🇷", callback_data="set_lang_fa"),
+        InlineKeyboardButton("Bengali 🇧🇩", callback_data="set_lang_bn")]
         ]
     await client.edit_message_text(chat_id=Owner, message_id=query.message.message_id, text=text, parse_mode='markdown',
         reply_markup=InlineKeyboardMarkup(buttons))

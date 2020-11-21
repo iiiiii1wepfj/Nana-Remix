@@ -25,7 +25,8 @@ community will answer you some questions.
 
 ### Translators
 
-- [pokurt](https://github.com/pokurt) - __English__
-- [iMat1n](https://github.com/iMat1n) - __Persian__
-- [iiiiii1wepfj](https://github.com/iiiiii1wepfj) - __Hebrew__
-- [breakdowns](https://github.com/breakdowns) - __Indonasian__
+- [pokurt](https://github.com/pokurt) - English
+- [iMat1n](https://github.com/iMat1n) - Persian
+- [iiiiii1wepfj](https://github.com/iiiiii1wepfj) - Hebrew
+- [breakdowns](https://github.com/breakdowns) - Indonasian
+- [dank-del](https://github.com/dank-del) - Bengali
