@@ -30,3 +30,4 @@ community will answer you some questions.
 - [iiiiii1wepfj](https://github.com/iiiiii1wepfj) - Hebrew
 - [breakdowns](https://github.com/breakdowns) - Indonasian
 - [dank-del](https://github.com/dank-del) - Bengali
+- [spkal01](https://github.com/spkal01) - Greek
