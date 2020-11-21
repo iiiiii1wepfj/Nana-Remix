@@ -41,7 +41,7 @@ async def locale_button(client, query):
     buttons = [
         [InlineKeyboardButton("🇺🇸 English (US)", callback_data="set_lang_en-US"),
         InlineKeyboardButton("🇮🇳 हिंदी", callback_data="set_lang_hi")],
-        [InlineKeyboardButton("🇮🇱 עברית, callback_data="set_lang_he"),
+        [InlineKeyboardButton("🇮🇱 עברית", callback_data="set_lang_he"),
         InlineKeyboardButton("🇮🇩 bahasa Indonesia", callback_data="set_lang_id")],
         [InlineKeyboardButton("🇮🇷 فارسی", callback_data="set_lang_fa"),
         InlineKeyboardButton("🇧🇩 বাংলা", callback_data="set_lang_bn")],
