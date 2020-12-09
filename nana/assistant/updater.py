@@ -12,7 +12,6 @@ from nana import (
     REPOSITORY,
     RANDOM_STICKERS,
     REMINDER_UPDATE,
-    TEST_DEVELOP,
 )
 from nana.__main__ import restart_all, loop
 from nana.assistant.__main__ import dynamic_data_filter
@@ -124,5 +123,5 @@ async def update_button(client, query):
     await restart_all()
 
 
-if REMINDER_UPDATE and not TEST_DEVELOP:
+if REMINDER_UPDATE:
     loop.create_task(update_checker())

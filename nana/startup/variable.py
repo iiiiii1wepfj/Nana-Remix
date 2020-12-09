@@ -1,13 +1,16 @@
 from os import environ
+from configparser import ConfigParser
+
+config = ConfigParser()
+config.read('config.ini')
 
 
 def get_var(name, default=None):
     ENV = bool(environ.get("ENV", False))
     if ENV:
         return environ.get(name, default)
-    from nana.config import Development as Config
 
     try:
-        return getattr(Config, name)
+        return config.get('nana', name)
     except AttributeError:
         return None

@@ -291,15 +291,12 @@ async def get_id(_, message):
         rep = message.reply_to_message
         if rep.audio:
             file_id = f"**File ID**: `{rep.audio.file_id}`\n"
-            file_id += f"**File Ref**: `{rep.audio.file_ref}`\n"
             file_id += "**File Type**: `audio`\n"
         elif rep.document:
             file_id = f"**File ID**: `{rep.document.file_id}`\n"
-            file_id += f"**File Ref**: `{rep.document.file_ref}`\n"
             file_id += f"**File Type**: `{rep.document.mime_type}`\n"
         elif rep.photo:
             file_id = f"**File ID**: `{rep.photo.file_id}`\n"
-            file_id += f"**File Ref**: `{rep.photo.file_ref}`\n"
             file_id += "**File Type**: `photo`"
         elif rep.sticker:
             file_id = f"**Sicker ID**: `{rep.sticker.file_id}`\n"
@@ -315,19 +312,15 @@ async def get_id(_, message):
                 file_id += "**Sticker Emoji**: __None__"
         elif rep.video:
             file_id = f"**File ID**: `{rep.video.file_id}`\n"
-            file_id += f"**File Ref**: `{rep.video.file_ref}`\n"
             file_id += "**File Type**: `video`"
         elif rep.animation:
             file_id = f"**File ID**: `{rep.animation.file_id}`\n"
-            file_id += f"**File Ref**: `{rep.animation.file_ref}`\n"
             file_id += "**File Type**: `GIF`"
         elif rep.voice:
             file_id = f"**File ID**: `{rep.voice.file_id}`\n"
-            file_id += f"**File Ref**: `{rep.voice.file_ref}`\n"
             file_id += "**File Type**: `Voice Note`"
         elif rep.video_note:
             file_id = f"**File ID**: `{rep.animation.file_id}`\n"
-            file_id += f"**File Ref**: `{rep.animation.file_ref}`\n"
             file_id += "**File Type**: `Video Note`"
         elif rep.location:
             file_id = "**Location**:\n"

@@ -19,22 +19,7 @@ from .startup.variable import get_var
 
 StartTime = time.time()
 
-ENV = bool(get_var("ENV", False))
-if ENV:
-    TEST_DEVELOP = bool(get_var("TEST_DEVELOP", False))
-else:
-    try:
-        from nana.config import Development as Config
-    except ModuleNotFoundError:
-        logging.error("You need to place config.py in nana dir!")
-        sys.exit()
-    TEST_DEVELOP = Config.TEST_MODE
-    PM_PERMIT = Config.PM_PERMIT
 
-
-if TEST_DEVELOP:
-    logging.warning("Testing mode activated!")
-    log = logging.getLogger()
 
 # if version < 3.6, stop bot.
 if sys.version_info[0] < 3 or sys.version_info[1] < 6:
@@ -54,7 +39,7 @@ RANDOM_STICKERS = [
     "CAADAgADaV0AAuCjggfi51NV8GUiRwI",
 ]
 
-
+ENV = get_var("ENV", False)
 logger = get_var("LOGGER", False)
 # Version
 lang_code = get_var("lang_code", "en")
@@ -63,7 +48,7 @@ system_version = platform.platform()
 time_country = get_var("time_country", None)
 
 # Must be filled
-api_id = get_var("api_id", None)
+api_id = int(get_var("api_id", None))
 api_hash = get_var("api_hash", None)
 
 # Session
@@ -73,16 +58,6 @@ USERBOT_SESSION = get_var("USERBOT_SESSION", None)
 Command = get_var("Command", "! . - ^").split()
 NANA_WORKER = int(get_var("NANA_WORKER", 8))
 ASSISTANT_WORKER = int(get_var("ASSISTANT_WORKER", 2))
-
-try:
-    TEST_DEVELOP = bool(get_var("TEST_DEVELOP", False))
-    if not TEST_DEVELOP:
-        raise AttributeError
-    USERBOT_SESSION = get_var("USERBOT_SESSION", None)
-    ASSISTANT_SESSION = get_var("ASSISTANT_SESSION", None)
-except AttributeError:
-    pass
-
 # APIs
 thumbnail_API = get_var("thumbnail_API", None)
 screenshotlayer_API = get_var("screenshotlayer_API", None)
@@ -102,7 +77,6 @@ DB_URI = get_var("DB_URI", "postgres://username:password@localhost:5432/database
 ASSISTANT_BOT_TOKEN = get_var("ASSISTANT_BOT_TOKEN", None)
 AdminSettings = [int(x) for x in get_var("AdminSettings", "").split()]
 REMINDER_UPDATE = bool(get_var("REMINDER_UPDATE", True))
-TEST_MODE = bool(get_var("TEST_MODE", False))
 NANA_IMG = get_var("NANA_IMG", False)
 PM_PERMIT = bool(get_var("PM_PERMIT", False))
 
@@ -197,7 +171,6 @@ setbot = Client(
     api_hash=api_hash,
     bot_token=ASSISTANT_BOT_TOKEN,
     workers=ASSISTANT_WORKER,
-    test_mode=TEST_MODE,
 )
 
 app = Client(
@@ -209,7 +182,6 @@ app = Client(
     system_version=system_version,
     lang_code=lang_code,
     workers=NANA_WORKER,
-    test_mode=TEST_MODE,
 )
 
 

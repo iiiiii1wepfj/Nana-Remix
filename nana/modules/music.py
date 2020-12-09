@@ -53,7 +53,6 @@ async def send_music(client, message):
             await client.send_audio(
                 chat_id=message.chat.id,
                 audio=str(saved.audio.file_id),
-                file_ref=str(saved.audio.file_ref),
                 reply_to_message_id=reply_to,
             )
 

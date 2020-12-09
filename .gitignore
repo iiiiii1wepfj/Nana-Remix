@@ -121,3 +121,4 @@ nana/modules/test_admin.py
 .idea/dictionaries/Aman.xml
 *.session
 *.session-journal
+config.ini
